@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>这是一个测试用例</title>
+</head>
+<body>
+
+<p id="info"></p>
+<p><input type="text" id="name" value="jjjj" /></p>
+<p><input type="text" id="msg"/></p>
+<p><input type="button" id="sub"/></p>
+
+<script type="text/javascript">
+function kk(str){
+    return document.getElementById(str);
+}
+
+var name = kk('name');
+var msg = kk('msg');
+var info = kk('info');
+var sub = kk('sub');
+var ws = new WebSocket('ws://localhost:9000/');
+ws.onopen = function(){
+    info.innerHTML = '连接成功建立<br/>';
+}
+ws.onmessage = function(e){
+	
+    info.innerHTML += e.data+'<br/>';
+}
+sub.onclick = function(){
+	// if (name.value != undefined || name.value == '') {
+		ws.send(name.value+":"+msg.value);
+	// }
+    
+}
+// ws.onclose = function(e){
+// 	info.innerHTML += '关闭'+'<br/>';
+// }
+</script>
+</body>
+</html>
